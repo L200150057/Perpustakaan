@@ -1,0 +1,35 @@
+@font-face {
+font-family: 'Pattaya';
+font-style: normal;
+font-weight: 300;
+src: local('Pattaya'), local('Pattaya'), url('../fonts/Pattaya-Regular.woff') format('woff');
+}
+
+@font-face {
+font-family: 'PT Sans';
+font-style: normal;
+font-weight: 300;
+src: local('PT Sans'), local('PT Sans'), url('../fonts/PT_Sans-Web-Regular.woff') format('woff');
+}
+
+.paginaton {
+	margin: 0px !important;
+}
+
+.table > tbody > tr > td {
+	vertical-align: middle;
+}
+
+html{
+	font-family: 'PT Sans';
+}
+
+a.navbar-brands.active{
+	font-size: medium !important;
+}
+
+input#excel{
+	border: 1px solid #d3e0e9;
+	border-radius: 5px;
+	padding: 5px;
+}
