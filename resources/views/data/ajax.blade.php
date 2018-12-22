@@ -31,13 +31,15 @@ $(document).on('click', 'button#create-data', function(e){
         },
         success: function( data ) {
             if (data.errors){
-                $.notify({
-                    message: data.errors
-                },{
-                    type: 'danger',
-                    z_index: 99999,
-                    delay: 1000,
-                });
+                for(var k in data.errors) {
+                    $.notify({
+                        message: data.errors[k]
+                    },{
+                        type: 'danger',
+                        z_index: 99999,
+                        delay: 1000,
+                    });
+                }
             }else{
                 //Reset form
                 $('form#buat').trigger('reset');

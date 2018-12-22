@@ -49,15 +49,18 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('login') }}" style="{{ (Request::is('login*') ? 'color: rgb(66, 157, 209);' : '') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                <a id="username" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <li>
+                                          <a href="{{ route('user.show', Auth::user()->id) }}">Setting</a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -85,6 +88,7 @@
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('js/bootstrap-notify.min.js') }}"></script>
     <script type="text/javascript">
+
         @if(session('success'))
             $.notify({
                 message: "{{ session('success') }}"
@@ -93,6 +97,7 @@
                 delay: 1000
             });
         @endif
+
         @if(session('error'))
             $.notify({
                 message: "{{ session('error') }}"
@@ -101,6 +106,16 @@
                 delay: 3000
             });
         @endif
+
+        @foreach ($errors->all() as $error)
+        $.notify({
+            message: "{{ $error }}"
+        },{
+            type: 'danger',
+            delay: 3000
+        });
+        @endforeach
+
     </script>
 </body>
 </html>

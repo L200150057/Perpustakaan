@@ -59,12 +59,17 @@ class DataController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'required' => 'Form :attribute harus di isi!!!',
+            'unique' => 'Data telah tersedia di database!'
+        ];
+
         $validator = Validator::make($request->all(), [
             'nama_buku' => 'required|unique:bukus,nama_buku',
-        ]);
+        ], $messages);
 
         if ($validator->fails()) {
-            return response()->json(['errors'=>'Data telah tersedia di database!']);
+            return response()->json(['errors'=>$validator->messages()]);
         }
 
         $Bukus = Buku::create($request->all());

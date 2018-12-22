@@ -70,16 +70,15 @@
                     <div id="excel" class="collapse">
                         <form method="POST" action="{{ url('/excel') }}" enctype="multipart/form-data" class="form-horizontal">
                             {{ csrf_field() }}
-                            <div class="form-group">
-                                <div class="col-sm-10">
-                                    <input type="file" name="excel" required id="excel" class="col-sm-12">
-                                </div>
-                                <div class="col-sm-2">
-                                    <button id="excel-submit" class="btn btn-primary btn-block">Submit</button>
-                                </div>
+                            <div class="input-group">
+                                <input type="file" name="excel" required id="excel" class="form-control">
+                                <span class="input-group-addon" style="border:0px;background-color: transparent;"></span>
+                                <button id="excel-submit" class="btn btn-primary btn-block form-control">Submit</button>
                             </div>
                         </form>
                     </div>
+                </div>
+                <div class="panel-body">
                     <form id="form-search" class="form-horizontal">
                         <div class="input-group">
                             <span class="input-group-addon">Cari buku</span>
@@ -108,7 +107,31 @@
                                     @include('data.modal-view')
                                     <button id="edit" data-id="{{ $buku->id }}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-data-{{ $buku->id }}">Edit</button>
                                     @include('data.modal-edit')
-                                    <button class="btn btn-danger btn-sm" id="delete" data-id="{{ $buku->id }}">Delete</button>
+                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-data">Delete</button>
+
+                                    {{-- modal delete start --}}
+                                    <div class="modal fade" id="delete-data" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h4 class="modal-title" id="">Delete</h4>
+                                          </div>
+                                          <div class="modal-body">
+                                              Apa anda yakin ingin menghapus data ini?
+                                          </div>
+                                          <div class="modal-footer">
+                                              <div class="col-sm-6">
+                                                  <button type="button" class="btn btn-success btn-block btn-sm" id="delete" data-id="{{ $buku->id }}" data-dismiss="modal">Iya</button>
+                                              </div>
+                                              <div class="col-sm-6">
+                                                  <button type="button" class="btn btn-danger btn-block btn-sm" data-dismiss="modal">Tidak</button>
+                                              </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {{-- modal delete end --}}
+                                    
                                 </td>
                             </tr>
                             @endforeach
