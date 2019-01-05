@@ -26,13 +26,42 @@
                           </div>
                       </div>
                       <div class="form-group">
-                          <div class="col-sm-4 col-sm-offset-2">
-                              <button class="btn btn-primary" id="update-user" value="{{ $user->id }}">Update</button>
+                          <div class="col-sm-10 col-sm-offset-2">
+                              <button class="btn btn-primary btn-sm" id="update-user" value="{{ $user->id }}">Update</button>
+                              {{-- &nbsp;
+                              <a href="#deleteaccountmodal" data-toggle="modal" class="btn btn-danger btn-sm">Hapus akun</a> --}}
                               &nbsp;
                               <a href="#changepasswordmodal" data-toggle="modal">Ganti Password</a>
                           </div>
                       </div>
                   </form>
+
+                  {{-- modal hapus akun --}}
+                  <div class="modal fade" id="deleteaccountmodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title" id="">Warning!!!</h4>
+                        </div>
+                        <div class="modal-body">
+                            Apa anda yakin ingin menghapus akun ini?
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-sm-6">
+                                <form class="form-horizontal" action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('delete') }}
+                                    <button type="submit" class="btn btn-success btn-block btn-sm">Iya</button>
+                                </form>
+                            </div>
+                            <div class="col-sm-6">
+                                <button type="button" class="btn btn-danger btn-block btn-sm" data-dismiss="modal">Tidak</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                   {{-- modal ganti password start --}}
                   <div class="modal fade" id="changepasswordmodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">

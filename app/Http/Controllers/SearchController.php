@@ -9,20 +9,29 @@ class SearchController extends Controller
 {
     public function search(Request $request){
         if($request->search != ''){
-            $Bukus = Buku::where('nama_buku','like','%'.$request->search.'%')
-            ->orWhere('pengarang', 'like', '%'.$request->search.'%')
-            ->orWhere('tahun_terbit', 'like', '%'.$request->search.'%')
-            ->orWhere('penerbit', 'like', '%'.$request->search.'%')
-            ->orWhere('jenis_buku', 'like', '%'.$request->search.'%')
-            ->paginate(10);
-            $Bukus->appends($request->only('search'));
+
+            if(strlen($request->search) <= 2){
+                $Bukus = Buku::where('rak','like','%'.$request->search.'%')
+                ->paginate(10);
+                $Bukus->appends($request->only('search'));
+            }else {
+                $Bukus = Buku::where('nama_buku','like','%'.$request->search.'%')
+                ->orWhere('pengarang', 'like', '%'.$request->search.'%')
+                ->orWhere('tahun_terbit', 'like', '%'.$request->search.'%')
+                ->orWhere('penerbit', 'like', '%'.$request->search.'%')
+                ->orWhere('jenis_buku', 'like', '%'.$request->search.'%')
+                ->paginate(10);
+                $Bukus->appends($request->only('search'));
+            }
+
             if ($Bukus->isEmpty()){
-                return redirect()->back()->with('warning', 'Maaf data tidak ditemukan');
+                return view('welcome', compact('Bukus'));
             }else{
                 return view('welcome', compact('Bukus'));
             }
+
         }else{
-            return view('welcome');
+            return view('welcome', compact('Bukus'));
         }
     }
 }

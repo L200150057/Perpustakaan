@@ -25,6 +25,14 @@ class DataController extends Controller
     public function index(Request $request)
     {
         if($request->search != ''){
+
+            if (strlen($request->search) <= 2){
+                $Bukus = Buku::where('rak','like','%'.$request->search.'%')
+                ->paginate(10);
+                $Bukus->appends($request->only('search'));
+                return view('data.index', compact('Bukus'));
+            }
+
             $Bukus = Buku::where('nama_buku','like','%'.$request->search.'%')
             ->orWhere('pengarang', 'like', '%'.$request->search.'%')
             ->orWhere('tahun_terbit', 'like', '%'.$request->search.'%')
@@ -33,12 +41,12 @@ class DataController extends Controller
             ->paginate(10);
             $Bukus->appends($request->only('search'));
             return view('data.index', compact('Bukus'));
+
         }else{
             $Bukus = Buku::orderBy('id', 'desc')->paginate(10);
             $Bukus->appends($request->only('search'));
             return view('data.index', compact('Bukus'));
         }
-
     }
 
     /**
@@ -127,71 +135,5 @@ class DataController extends Controller
     public function destroy($id)
     {
         Buku::find($id)->delete();
-    }
-
-    public function create_excel(Request $request)
-    {
-        // Get current data from items table
-        $nama_bukus = Buku::pluck('nama_buku')->toArray();
-
-        if($request->hasFile('excel')){
-            $extension = File::extension($request->excel->getClientOriginalName());
-            if ($extension == "xlsx" || $extension == "xls" || $extension == "csv") {
-                $path = $request->excel->getRealPath();
-                $data = Excel::load($path, function($reader) {
-                })->get();
-                if(!empty($data) && $data->count()){
-
-                    $insert = array();
-
-                    foreach ($data as $key => $value) {
-
-                        // Skip title previously added using in_array
-                        if (in_array($value->nama_buku, $nama_bukus))
-                            continue;
-
-                        $insert[] = [
-                        'nama_buku' => $value->nama_buku,
-                        'pengarang' => $value->pengarang,
-                        'tahun_terbit' => $value->tahun_terbit,
-                        'penerbit' => $value->penerbit,
-                        'rak' => $value->rak,
-                        'jenis_buku' => $value->jenis_buku,
-                        'created_at'=>date('Y-m-d H:i:s'),
-                        'updated_at'=>date('Y-m-d H:i:s')
-                        ];
-
-                        // Add new title to array
-                        $nama_bukus[] = $value->nama_buku;
-                    }
-
-                    if(!empty($insert)){
-
-                        $validator = Validator::make($insert, [
-                            '*.nama_buku' => 'required|unique:bukus,nama_buku|distinct|min:3',
-                        ]);
-
-                        if ($validator->fails()) {
-                            Session::flash('error', 'Sebagian data Data telah tersedia di database! Mohon di cek lagi');
-                            return back();
-                        }else{
-                            $insertData = Buku::insert($insert);
-                            if ($insertData) {
-                                Session::flash('success', 'Your Data has successfully imported');
-                            }else {
-                                Session::flash('error', 'Error inserting the data..');
-                                return back();
-                            }
-                        }
-                    }
-                }
-
-                return back();
-
-            }else {
-                Session::flash('error', 'File is a '.$extension.' file.!! Please upload a valid xls/csv file..!!');
-                return back();
-            }
-        }
     }
 }

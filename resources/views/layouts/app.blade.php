@@ -11,15 +11,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('fonts/fontawesome/fontawesome/css/font-awesome.css') }}" rel="stylesheet">
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
 </head>
-<body>
+<body id="particles-js">
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top" id="flat">
             <div class="container">
                 <div class="navbar-header">
 
@@ -33,25 +33,24 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        Home
+                        <div id="{{ (Request::is('/*') ? 'active' : '') }}">Home</div>
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    @auth
-                    <ul class="nav navbar-nav">
-                        <a class="navbar-brand" style="{{ (Request::is('data*') ? 'color: rgb(66, 157, 209);' : '') }}" href="{{ route('data.index') }}">Data</a>
-                    </ul>
-                    @endauth
-
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}" style="{{ (Request::is('login*') ? 'color: rgb(66, 157, 209);' : '') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            {{-- <li><a href="{{ route('register') }}">Register</a></li> --}}
                         @else
+                            <li>
+                                  <a href="{{ route('data.index') }}" id="{{ (Request::is('data*') ? 'active' : '') }}">Data</a>
+                            </li>
+                            <li>
+                                  <a href="{{ route('export') }}" id="{{ (Request::is('export*') ? 'active' : '') }}">Export</a>
+                            </li>
                             <li class="dropdown">
                                 <a id="username" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -87,7 +86,14 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('js/bootstrap-notify.min.js') }}"></script>
+    <script src="{{ asset('js/particles.js') }}"></script>
+    <script src="{{ asset('js/particle-app.js') }}"></script>
     <script type="text/javascript">
+
+        $('#dropdown-search li a').click(function(){
+            $('#selected').text($(this).text());
+            $('#mbuh').attr('name', $(this).attr('name'));
+        })
 
         @if(session('success'))
             $.notify({
@@ -115,6 +121,11 @@
             delay: 3000
         });
         @endforeach
+
+        $('ul.dropdown-menu li a').click(function() {
+            $('#selected').text($(this).text());
+            $('#mbuh').attr('name', $(this).attr('name'));
+        })
 
     </script>
 </body>

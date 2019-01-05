@@ -19,8 +19,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('data', 'DataController');
 Route::get('/', 'SearchController@search')->name('search');
-Route::get('/autocomplete', 'SearchController@autocomplete');
-Route::post('/excel', 'DataController@create_excel');
+
+Route::post('/import_excel', 'ExcelController@import_excel');
+Route::post('/export_excel', 'ExcelController@export_excel')->name('export_excel');
+Route::get('/export', 'ExcelController@export')->name('export');
 
 Route::resource('user', 'UserController');
 Route::post('/user/{id}/update_password', 'UserController@update_password')->name('update_password');
