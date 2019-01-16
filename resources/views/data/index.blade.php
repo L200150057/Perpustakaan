@@ -70,11 +70,28 @@
                     <div id="excel" class="collapse">
                         <form method="POST" action="{{ url('/import_excel') }}" enctype="multipart/form-data" class="form-horizontal">
                             {{ csrf_field() }}
-                            <div class="input-group">
+                            <!-- <div class="input-group">
                                 <input type="file" name="excel" required id="excel" class="form-control">
                                 <span class="input-group-addon" style="border:0px;background-color: transparent;"></span>
                                 <button id="excel-submit" class="btn btn-primary btn-block form-control">Submit</button>
+                            </div> -->
+                            <div class="input-group">
+                                <label class="input-group-btn">
+                                    <span class="btn btn-default">
+                                        Browse&hellip; <input type="file" name="excel" required style="display: none;" multiple>
+                                    </span>
+                                </label>
+                                <input type="text" class="form-control" readonly>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </span>
                             </div>
+                        </form>
+                        <form style="float: left" class="form-horizontal" action="{{ route("template") }}" method="post">
+                            {{ csrf_field() }}
+                            <button type="submit" class="btn btn-link">
+                                Download template
+                            </button>
                         </form>
                     </div>
                 </div>

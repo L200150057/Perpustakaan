@@ -53,22 +53,14 @@ class ExcelController extends Controller
                     }
 
                     if(!empty($insert)){
-
-                        $validator = Validator::make($insert, [
-                            '*.nama_buku' => 'required|unique:bukus,nama_buku|distinct|min:3',
-                        ]);
-
-                        if ($validator->fails()) {
-                            Session::flash('error', 'Sebagian data Data telah tersedia di database! Mohon di cek lagi');
+                        foreach ($insert as $key => $value) {
+                            $insertData = Buku::firstOrCreate($value);
+                        }
+                        if ($insertData) {
+                            Session::flash('success', 'Your Data has successfully imported');
+                        }else {
+                            Session::flash('error', 'Error inserting the data..');
                             return back();
-                        }else{
-                            $insertData = Buku::insert($insert);
-                            if ($insertData) {
-                                Session::flash('success', 'Your Data has successfully imported');
-                            }else {
-                                Session::flash('error', 'Error inserting the data..');
-                                return back();
-                            }
                         }
                     }
                 }
@@ -97,6 +89,25 @@ class ExcelController extends Controller
                 'jenis_buku' => $data->jenis_buku
             );
         }
+
+        Excel::create('Data Buku', function($excel) use ($buku_array){
+            $excel->setTitle('Data Buku');
+            $excel->sheet('Data Buku', function($sheet) use ($buku_array){
+                $sheet->fromArray($buku_array, null, 'A1', false, false);
+            });
+        })->download('xlsx');
+    }
+
+    public function template(){
+
+        $buku_array[] = array(
+            'nama_buku' => 'nama_buku',
+            'pengarang' => 'pengarang',
+            'tahun_terbit' => 'tahun_terbit',
+            'penerbit' => 'penerbit',
+            'rak' => 'rak',
+            'jenis_buku' => 'jenis_buku'
+        );
 
         Excel::create('Data Buku', function($excel) use ($buku_array){
             $excel->setTitle('Data Buku');

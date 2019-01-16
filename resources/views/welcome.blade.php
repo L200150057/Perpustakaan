@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
-            <div class="" id="perpustakaan" style="margin-top: 100px">
+            <div class="" id="perpustakaan" style="margin-top: 130px">
                 <div class="title m-b-md">
                     <i class="fa fa-book"></i> Perpustakaan
                 </div>

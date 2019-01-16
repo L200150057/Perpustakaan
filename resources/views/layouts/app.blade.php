@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Perpustakaan') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -43,7 +43,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}" style="{{ (Request::is('login*') ? 'color: rgb(66, 157, 209);' : '') }}">Login</a></li>
-                            {{-- <li><a href="{{ route('register') }}">Register</a></li> --}}
+                            <!-- <li><a href="{{ route('register') }}">Register</a></li> -->
                         @else
                             <li>
                                   <a href="{{ route('data.index') }}" id="{{ (Request::is('data*') ? 'active' : '') }}">Data</a>
@@ -86,8 +86,6 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('js/bootstrap-notify.min.js') }}"></script>
-    <script src="{{ asset('js/particles.js') }}"></script>
-    <script src="{{ asset('js/particle-app.js') }}"></script>
     <script type="text/javascript">
 
         $('#dropdown-search li a').click(function(){
@@ -121,11 +119,6 @@
             delay: 3000
         });
         @endforeach
-
-        $('ul.dropdown-menu li a').click(function() {
-            $('#selected').text($(this).text());
-            $('#mbuh').attr('name', $(this).attr('name'));
-        })
 
     </script>
 </body>

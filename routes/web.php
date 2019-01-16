@@ -22,6 +22,7 @@ Route::get('/', 'SearchController@search')->name('search');
 
 Route::post('/import_excel', 'ExcelController@import_excel');
 Route::post('/export_excel', 'ExcelController@export_excel')->name('export_excel');
+Route::post('/template', 'ExcelController@template')->name('template');
 Route::get('/export', 'ExcelController@export')->name('export');
 
 Route::resource('user', 'UserController');

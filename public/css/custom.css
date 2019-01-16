@@ -12,6 +12,13 @@ font-weight: 300;
 src: local('PT Sans'), local('PT Sans'), url('../fonts/PT_Sans-Web-Regular.woff') format('woff');
 }
 
+@font-face {
+font-family: 'RobotoSlab';
+font-style: normal;
+font-weight: 300;
+src: local('RobotoSlab'), local('RobotoSlab'), url('../fonts/RobotoSlab-Bold.woff') format('woff');
+}
+
 ul.pagination {
 	margin: 0px;
 }
@@ -23,6 +30,11 @@ ul.pagination {
 html{
 	font-family: 'PT Sans';
 	height: 100px;
+}
+
+body{
+	background-image: url('../img/background.png');
+	overflow-y: scroll;
 }
 
 a.navbar-brands.active{
@@ -37,7 +49,7 @@ input#excel{
 
 .m-b-md {
 	margin-bottom: 15px;
-	font-family: 'Pattaya';
+	font-family: 'RobotoSlab';
 	text-align: center;
 	color: white;
 }
@@ -70,68 +82,4 @@ input#excel{
 
 .tab-pane{
 	padding-top: 30px;
-}
-
-/* particle css */
-
-/* ---- reset ---- */
-body {
-    margin: 0;
-}
-
-canvas {
-    display: block;
-    vertical-align: bottom;
-	position: fixed;
-	top: 0px;
-	z-index: -10;
-}
-
-/* ---- particles.js container ---- */
-#particles-js {
-    position: absolute;
-    width: 100%;
-	height: 100%;
-    background-color: #379683;
-    background-image: url("");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
-	z-index: 99999999999;
-}
-
-/* ---- stats.js ---- */
-.count-particles {
-    background: #000022;
-    position: absolute;
-    top: 48px;
-    left: 0;
-    width: 80px;
-    color: #13E8E9;
-    font-size: .8em;
-    text-align: left;
-    text-indent: 4px;
-    line-height: 14px;
-    padding-bottom: 2px;
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: bold;
-}
-
-.js-count-particles {
-    font-size: 1.1em;
-}
-
-#stats, .count-particles {
-    -webkit-user-select: none;
-    margin-top: 5px;
-    margin-left: 5px;
-}
-
-#stats {
-    border-radius: 3px 3px 0 0;
-    overflow: hidden;
-}
-
-.count-particles {
-    border-radius: 0 0 3px 3px;
 }
