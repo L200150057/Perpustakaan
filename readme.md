@@ -11,23 +11,22 @@
 
 Download & install <a href="https://getcomposer.org/">Composer</a>\
 Buka folder perpustakaan lalu tekan tombol Shift + klik kanan\
-Pilih open command window here\
+Pilih open command window here
 
 > Ketik composer install
 
 Tunggu sampai selesai\
-copy env.example, ganti nama jadi .env.\
+copy & paste env.example, ganti nama jadi .env.
 
-> ketik php artisan key:generate\
+> ketik php artisan key:generate
 
-Buka file .env di text editor\
-ganti
+Buka file .env di text editor ganti
 
 > DB_DATABASE = Nama databse mu
 > DB_USERNAME = User ( Biasane root )
 > DB_PASSWORD = Password ( Biasane kosong )
 
 Buka Xampp\
-Buka Firefox ketik\
+Buka Firefox
 
 > Ketik <a href="http://localhost/perpustakaan/public/">http://localhost/perpustakaan/public/</a>
