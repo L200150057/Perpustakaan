@@ -22,8 +22,8 @@ copy & paste env.example, ganti nama jadi .env.
 
 Buka file .env di text editor ganti
 
-> DB_DATABASE = Nama databse mu
-> DB_USERNAME = User ( Biasane root )
+> DB_DATABASE = Nama databse mu\
+> DB_USERNAME = User ( Biasane root )\
 > DB_PASSWORD = Password ( Biasane kosong )
 
 Buka Xampp\
