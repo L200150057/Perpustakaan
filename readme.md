@@ -30,3 +30,5 @@ Buka Xampp\
 Buka Firefox
 
 > Ketik <a href="http://localhost/perpustakaan/public/">http://localhost/perpustakaan/public/</a>
+
+## NB : Kudu nggo koneksi internet
